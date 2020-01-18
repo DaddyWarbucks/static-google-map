@@ -6,10 +6,10 @@
   "browser": "dist/static-google-map.umd.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:daddywarbucks/static-google-map.git"
+    "url": "https://github.com/DaddyWarbucks/static-google-map.git"
   },
   "sideEffects": false,
-  "author": "Akinmade Bond <bond@max.ng>, Beau Shaw <DaddyWarbucks>",
+  "author": "Beau Shaw <DaddyWarbucks>, Akinmade Bond <bond@max.ng>",
   "typings": "./typings/index.d.ts",
   "license": "MIT",
   "keywords": [
