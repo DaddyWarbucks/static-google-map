@@ -26,7 +26,7 @@ function nativeStrategy(data) {
       {
         origin: originLocation,
         destination: destinationLocation,
-        travelMode: travelMode.toUpperCase(),
+        travelMode: travelMode && travelMode.toUpperCase(),
       },
       (result, status) => {
         if (status === window.google.maps.DirectionsStatus.OK) {
