@@ -56,7 +56,7 @@ export const staticMapUrl = props => {
   return `${mainUrlParts}&${childURL}`;
 }
 
-export const asyncStaticMapUrl = (props, requestStrategy = 'fetch') => {
+export const asyncStaticMapUrl = (props, requestStrategy = 'native') => {
   return new Promise((resolve, reject) => {
     const {
       markers,
