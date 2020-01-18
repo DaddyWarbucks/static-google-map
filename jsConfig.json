@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "lib": ["es2017"]
+  },
+  "include": ["src/**/*.js"]
+}
