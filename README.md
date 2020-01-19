@@ -1,6 +1,6 @@
 # static google map
 
-A URL builder for Google Maps Static that turns a javascript object into a querystring.
+A URL builder for Google Maps Static that turns a javascript object into a querystring. Generate complex query strings containing markers, paths, directions and more.
 
 ## Overview
 
@@ -82,7 +82,7 @@ https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&m
  - [Directions](#directions)
 
 
- ## Static Map
+## Static Map
 
 ```js
 import { staticMapUrl } from 'static-google-map';
@@ -104,21 +104,34 @@ Should render
 https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&key=YOUR_API_KEY
 ```
 
-You do not have to render markers, paths, etc. The base map takes the following props:
+The base map takes the following props:
 
 - `size`: (required) defines the rectangular dimensions of the map image. This parameter takes a string of the form `{horizontal_value}x{vertical_value}`. For example, `500x400` defines a map `500 pixels` wide by `400 pixels` high. Maps smaller than 180 pixels in width will display a reduced-size Google logo. This parameter is affected by the `scale` parameter; the final output size is the product of the size and scale values.
+
 - `scale`: (optional) affects the number of pixels that are returned. `scale=2` returns twice as many pixels as `scale=1` while retaining the same coverage area and level of detail (i.e. the contents of the map don't change). This is useful when developing for high-resolution displays, or when generating a map for printing. The default value is `1`. Accepted values are `2` and `4` (`4` is only available to Google Maps APIs Premium Plan customers.)
+
 - `format`: (optional) defines the format of the resulting image. By default, the Google Static Maps API creates `PNG` images. There are several possible formats including `GIF`, `JPEG` and `PNG` types. Which format you use depends on how you intend to present the image. `JPEG` typically provides greater compression, while `GIF` and `PNG` provide greater detail.
+
 - `maptype`: (optional) defines the type of map to construct. There are several possible maptype values, including `roadmap`, `satellite`, `hybrid`, and `terrain`.
+
 - `language`: (optional) defines the language to use for display of labels on map tiles. Note that this parameter is only supported for some country tiles; if the specific language requested is not supported for the tile set, then the default language for that tileset will be used.
+
 - `region`: (optional) defines the appropriate borders to display, based on geo-political sensitivities. Accepts a region code specified as a two-character ccTLD ('top-level domain') value.
+
 - `visible`: (optional) specifies one or more locations that should remain visible on the map, though no markers or other indicators will be displayed. Use this parameter to ensure that certain features or map locations are shown on the Google Static Maps API.
+
 - `style`: (optional) defines a custom style to alter the presentation of a specific feature (roads, parks, and other features) of the map. This parameter takes feature and element arguments identifying the features to style, and a set of style operations to apply to the selected features.
+
 - `center`: (required if markers not present) defines the center of the map, equidistant from all edges of the map. This parameter takes a location as either a comma-separated {latitude,longitude} pair (e.g. "40.714728,-73.998672") or a string address (e.g. "city hall, new york, ny") identifying a unique location on the face of the earth.
+
 - `zoom`: (optional if markers not present) defines the zoom level of the map, which determines the magnification level of the map. This parameter takes a numerical value corresponding to the zoom level of the region desired.
+
 - `key`: (optional) allows you to monitor your application's API usage in the [Google API Console](https://support.google.com/googleapi/#topic=7013279)
+
 - `signature`: (recommended) is a digital signature used to verify that any site generating requests using your API key is authorized to do so.
+
 - `client`: (optional) By using your client ID (instead of an API key) to authenticate requests, you can: Add the channel parameter to requests so you can view more detailed usage reports.
+
 - `channel`: (optional) used to provide additional reporting detail, by grouping different channels separately in your reports. Refer to the [Premium Plan Reporting Overview](https://developers.google.com/maps/premium/reports/) for more information.
 
 ## Markers
@@ -159,12 +172,17 @@ Adding an array property of `markers` allows you render [markers](https://develo
 Each `marker` in the `markers` array takes the following props:
 
 - `size` - (optional) specifies the size of marker from the set `{tiny, mid, small}`. If no size parameter is set, the marker will appear in its default (normal) size.
+
 - `color` - (optional) specifies a 24-bit color (example: color=0xFFFFCC) or a predefined color from the set `{black, brown, green, purple, yellow, blue, gray, orange, red, white}`
+
 - `label` - (optional) specifies a single uppercase alphanumeric character from the set `{A-Z, 0-9}`. Note that default and mid sized markers are the only markers capable of displaying an alphanumeric-character parameter. `tiny` and `small` sized markers are not capable of displaying an alphanumeric-character.
 
 - `iconURL` - (optional) specifies the icon for the Marker - rather than use Google's marker icons - using a URL (which should be [URL-encoded](https://en.wikipedia.org/wiki/URL-encoding)). You can use URLs created by URL-shortening services such as https://goo.gl. Most URL-shortening services have the advantage of automatically encoding URLs.
+
 - `anchor` - (optional) sets how the icon is placed in relation to the specified markers locations. By default, the anchor point of a custom icon is the `bottom center` of the icon image. You can specify a different anchor point using the anchor descriptor in conjunction with your icon. Set the anchor as an `x,y` point of the icon (such as `10,5`), or as a predefined alignment using one of the following values: `top, bottom, left, right, center, topleft, topright, bottomleft, or bottomright`
+
 - `scale`: (optional) useful when using a custom marker iconURL.  The scale value is multiplied with the marker image size to produce the actual output size of the marker in pixels. Default scale value is 1; accepted values are 1, 2, and 4. Use marker scaling in conjunction with map scaling when displaying higher-resolution maps.
+
 - `location` - (required) defines the marker's location on the map. If the location is off the map, that marker will not appear in the constructed image provided that `center` and `zoom` props on the parent are supplied. However, if these props are not supplied, the Google Static Maps API server will automatically construct an image which contains the supplied markers ala [Implicit Positioning](https://developers.google.com/maps/documentation/static-maps/intro#ImplicitPositioning).
 
 
@@ -249,9 +267,13 @@ The paths property allows you render [paths](https://developers.google.com/maps/
 Each `path` in the `paths` array takes the following props:
 
 - `weight` - (optional) specifies the thickness of the path in pixels. If no weight parameter is set, the path will appear in its default thickness (5 pixels).
+
 - `color` - (optional) specifies a color either as a 24-bit (example: color=0xFFFFCC) or 32-bit hexadecimal value (example: color=0xFFFFCCFF), or from the set `{black, brown, green, purple, yellow, blue, gray, orange, red, white}`.
+
 - `fillcolor` - (optional) indicates both that the path marks off a polygonal area and specifies the fill color to use as an overlay within that area.
+
 - `geodesic` - (optional) indicates that the requested path should be interpreted as a geodesic line that follows the curvature of the earth. When false, the path is rendered as a straight line in screen space. Defaults to false.
+
 - `points` - (required) In order to draw a path, the path prop must be passed two or more points. The Google Static Maps API will then connect the path along those points, in the specified order.
 
 
@@ -374,8 +396,10 @@ asyncStaticMapUrl({
 It takes the following props as well as props from [Paths](#paths)
 
 - `origin` -  (required) specifies the start location from which to calculate directions. This value may be specified as a String (for example, "Chicago, IL"), as a LatLng value
+
 - `destination` - (required) specifies the end location to which to calculate directions. The options are the same as for the origin field described above.
-- `travelMode` - (optional) specifies what mode of transport to use when calculating directions. Valid values are `driving (Default), bicycling, transit, and WALKING`
+
+- `travelMode` - (optional) specifies what mode of transport to use when calculating directions. Valid values are `driving (Default), bicycling, transit, and walking`
 
 
 ### URL Size Restriction
