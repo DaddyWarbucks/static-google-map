@@ -8,7 +8,6 @@ const pathStrategy = (props, mapProps) => {
   }
 
   const urlParts = [];
-  // Todo: Remove the property if the defaultProp and Prop value is the same
 
   urlParts.push(urlBuilder('color', color, ':'));
   urlParts.push(urlBuilder('weight', weight, ':'));
@@ -16,7 +15,7 @@ const pathStrategy = (props, mapProps) => {
   urlParts.push(urlBuilder('geodesic', geodesic, ':'));
   urlParts.push(urlBuilder('', locationBuilder(points), ''));
 
-  const url = urlParts.filter(x => x).join('%7C'); //|
+  const url = urlParts.filter(x => x).join('%7C');
 
   return `path=${url}`;
 };
