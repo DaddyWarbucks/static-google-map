@@ -282,7 +282,7 @@ Each `path` in the `paths` array takes the following props:
 
 - `geodesic` - (optional) indicates that the requested path should be interpreted as a geodesic line that follows the curvature of the earth. When false, the path is rendered as a straight line in screen space. Defaults to false.
 
-- `points` - (required) Either an encoded polyline string or an array with two or more points. When passing a string polyline, be sure to include the `enc:` such as `{ points: 'points: 'enc:enrjF~blePve|Mwp`T' ' }`. When using an array of points, the Google Static Maps API will connect the path along those points in the specified order.
+- `points` - (required) Either an encoded polyline string or an array with two or more points. When passing a string polyline, be sure to include the `enc:` such as `{ points: 'enc:yourEncodedPolyLine' }`. When using an array of points, the Google Static Maps API will connect the path along those points in the specified order.
 
 
 ### Path Groups
