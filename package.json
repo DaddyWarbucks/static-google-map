@@ -1,6 +1,6 @@
 {
   "name": "static-google-map",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/static-google-map.cjs.js",
   "module": "dist/static-google-map.esm.js",
   "browser": "dist/static-google-map.umd.js",
