@@ -5,7 +5,7 @@ interface GoogleMapImageProps {
    * @type {string}
    * @memberof GoogleMapImageProps
    */
-  size: string;
+  size?: string;
 
   /**
    * The scale of the image
@@ -113,21 +113,26 @@ type locationType =
   | { lat: string | number; lng: string | number }
   | Array<string | number | { lat: string | number; lng: string | number }>;
 
-interface MarkerGroup {
+
+type Color =
+  | "black"
+  | "brown"
+  | "green"
+  | "purple"
+  | "yellow"
+  | "blue"
+  | "gray"
+  | "orange"
+  | "red"
+  | "white"
+  | (string & Record<never, never>); // Keeps autocomplete for above default values, while allowing any string
+
+interface MarkerStyles {
   size?: "tiny" | "mid" | "small" | "normal";
-  color?:
-    | "black"
-    | "brown"
-    | "green"
-    | "purple"
-    | "yellow"
-    | "blue"
-    | "gray"
-    | "orange"
-    | "red"
-    | "white"
-    | number;
+  /** Can be a predefined color from the set or a 24-bit color in the format "0xFFFFFF" */
+  color?: Color;
   iconURL?: string;
+  /** Single alphanumeric character */
   label?: string;
   scale?: "1" | "2" | "4" | 1 | 2 | 4;
   anchor?:
@@ -141,11 +146,15 @@ interface MarkerGroup {
     | string;
 }
 
-interface Marker extends MarkerGroup {
+interface Marker extends MarkerStyles {
   location: locationType;
 }
 
-interface PathGroup {
+interface MarkerGroup extends MarkerStyles {
+  markers: Marker[];
+}
+
+interface PathStyles {
   weight?: string | number;
   color?:
     | "black"
@@ -164,8 +173,12 @@ interface PathGroup {
   geodesic?: boolean;
 }
 
-interface Path extends PathGroup {
+interface Path extends PathStyles {
   points: locationType;
+}
+
+interface PathGroup extends PathStyles {
+  paths: Path[];
 }
 
 interface Direction extends PathGroup {
@@ -193,7 +206,7 @@ interface RequestStrategyOptions {
   transitRoutingPreference?: "less_walking" | "fewer_transfers";
   [index: string]: any;
 }
-interface Props extends Record<string, any> {
+interface Props extends GoogleMapImageProps {
   markers?: Marker[];
   markerGroups?: MarkerGroup[];
   paths?: Path[];
